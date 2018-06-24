@@ -6,20 +6,21 @@
 
 #include <yoyo/arm.h>
 
-#define UNUSED(x) ((void)(x))
-
-void kernelInit(unsigned int r0, unsigned int r1, unsigned int atags) {
+// unsigned int r0, unsigned int r1, unsigned int atags
+void kernelInit() {
     // Kernel execution environment initialization
-    UNUSED(r0);
-    UNUSED(r1);
-    UNUSED(atags);
+//    UNUSED(r0);
+//    UNUSED(r1);
+//    UNUSED(atags);
 
     UART0init();
     randInit();
 
     UART0puts("Hello YoYo!!!!!!!!!!!!!\n");
+    sleep(6);
     UART0hex(0xABCD);
 
+    sleepCycles(30000);
     UART0putchar('\n');
     UART0hex(rand(1, 10));
 

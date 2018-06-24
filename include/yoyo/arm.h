@@ -9,5 +9,6 @@
 
 #include "../../arm/uart.h"
 #include "../../arm/rand.h"
+#include "../../arm/delays.h"
 
 #endif //YOYO_KERNEL_ARM_H

@@ -1,12 +1,14 @@
 C_SOURCES = init/init.c \
             arm/mailboxes.c \
             arm/uart.c \
-            arm/rand.c
+            arm/rand.c \
+            arm/delays.c
 
 C_OBJECTS = init.o \
 			mailboxes.o \
 			uart.o \
-			rand.o
+			rand.o \
+			delays.o
 
 ASM_SOURCES = arm/boot.S
 ASM_OBJECTS = boot.o
