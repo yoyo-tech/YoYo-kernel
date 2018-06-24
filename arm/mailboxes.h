@@ -29,6 +29,7 @@ extern volatile unsigned int mailbox[36];
 
 // mailboxs' tags
 #define MAILBOX_TAG_GETSERIAL       0x10004
+#define MAILBOX_TAG_SETPOWER        0x28001
 #define MAILBOX_TAG_SETCLOCKRATE    0x38002
 #define MAILBOX_TAG_LAST            0
 

@@ -10,5 +10,6 @@
 #include "../../arm/uart.h"
 #include "../../arm/rand.h"
 #include "../../arm/delays.h"
+#include "../../arm/powerManagement.h"
 
 #endif //YOYO_KERNEL_ARM_H

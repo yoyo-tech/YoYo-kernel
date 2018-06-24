@@ -24,6 +24,8 @@ void kernelInit() {
     UART0putchar('\n');
     UART0hex(rand(1, 10));
 
+    powerOFFMachine();
+
     for(;;)
         ;
 
