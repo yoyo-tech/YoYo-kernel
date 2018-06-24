@@ -37,10 +37,10 @@ char UART0getchar();
 void UART0puts(const char *s);
 
 /**
- * Prints a character in hex format.
+ * Prints a number in hex format.
  *
- * @param ch character to print
+ * @param ch number to print
  */
-void UART0hex(unsigned int ch);
+void UART0hex(unsigned int number);
 
 #endif //YOYO_KERNEL_UART_H

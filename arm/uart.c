@@ -127,20 +127,28 @@ void UART0puts(const char *s) {
 }
 
 /**
- * Prints a character in hex format.
+ * Prints a number in hex format.
  *
- * @param ch character to print
+ * @param ch number to print
  */
-void UART0hex(unsigned int ch) {
-    unsigned int toPut;
+void UART0hex(unsigned int number) {
+    char outbuf[16];     // max 16 digits (without 0x)
 
-    for(int counter = 28; counter >= 0;counter -= 4) {
-        // Get highest multiple
-        toPut = (ch >> counter) & 0xF;
+    UART0puts("0x");
+    int i = 12;
+    int j = 0;
 
-        // 0-9 ==> '0' - '9'
-        // 10-15 ==> 'A' - 'F'
-        toPut += ((toPut > 9) ? 0x37 : 0x30);
-        UART0putchar(toPut);
+    do {
+        outbuf[i] = "0123456789ABCDEF"[number % 16];
+        i--;
+        number /= 16;
+    } while(number > 0);
+
+    while(++i < 13){
+        outbuf[j++] = outbuf[i];
     }
+
+    outbuf[j] = 0;
+
+    UART0puts(outbuf);
 }
