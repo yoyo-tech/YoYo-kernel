@@ -11,5 +11,6 @@
 #include "../../arm/rand.h"
 #include "../../arm/delays.h"
 #include "../../arm/powerManagement.h"
+#include "../../arm/framebuffer.h"
 
 #endif //YOYO_KERNEL_ARM_H
