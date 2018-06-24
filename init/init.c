@@ -4,8 +4,7 @@
 // Copyright (c) 2018 Addiction, All rights reserved.
 //
 
-#include "../arm/uart.h"
-#include "../arm/mailboxes.h"
+#include <yoyo/arm.h>
 
 #define UNUSED(x) ((void)(x))
 
@@ -16,9 +15,13 @@ void kernelInit(unsigned int r0, unsigned int r1, unsigned int atags) {
     UNUSED(atags);
 
     UART0init();
+    randInit();
 
     UART0puts("Hello YoYo!!!!!!!!!!!!!\n");
     UART0hex(0xABCD);
+
+    UART0putchar('\n');
+    UART0hex(rand(1, 10));
 
     for(;;)
         ;

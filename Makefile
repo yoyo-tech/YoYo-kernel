@@ -1,13 +1,15 @@
 C_SOURCES = init/init.c \
             arm/mailboxes.c \
-            arm/uart.c
+            arm/uart.c \
+            arm/rand.c
 
 C_OBJECTS = init.o \
 			mailboxes.o \
-			uart.o
+			uart.o \
+			rand.o
 
 ASM_SOURCES = arm/boot.S
-ASM_OBJECTS = arm/boot.o
+ASM_OBJECTS = boot.o
 
 CC = aarch64-linux-gnu-gcc
 CC_FLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles \
