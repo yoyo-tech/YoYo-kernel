@@ -4,7 +4,9 @@ C_SOURCES = init/init.c \
             arm/rand.c \
             arm/delays.c \
             arm/powerManagement.c \
-            arm/framebuffer.c
+            arm/framebuffer.c \
+            lib/ctype.c \
+            lib/memoryUtils.c
 
 C_OBJECTS = init.o \
 			mailboxes.o \
@@ -12,13 +14,15 @@ C_OBJECTS = init.o \
 			rand.o \
 			delays.o \
 			powerManagement.o \
-			framebuffer.o
+			framebuffer.o \
+			ctype.o \
+			memoryUtils.o
 
 ASM_SOURCES = arm/boot.S
 ASM_OBJECTS = boot.o
 
 CC = aarch64-linux-gnu-gcc
-CC_FLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles \
+CC_FLAGS = -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles \
 			-I include/
 
 LD = aarch64-elf-ld
