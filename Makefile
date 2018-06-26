@@ -6,7 +6,8 @@ C_SOURCES = init/init.c \
             arm/powerManagement.c \
             arm/framebuffer.c \
             lib/ctype.c \
-            lib/memoryUtils.c
+            lib/memoryUtils.c \
+            lib/debug.c
 
 C_OBJECTS = init.o \
 			mailboxes.o \
@@ -16,10 +17,14 @@ C_OBJECTS = init.o \
 			powerManagement.o \
 			framebuffer.o \
 			ctype.o \
-			memoryUtils.o
+			memoryUtils.o \
+			debug.o
 
 ASM_SOURCES = arm/boot.S
 ASM_OBJECTS = boot.o
+
+FONT_SOURCES = init/bootFonts/mainFont.psf
+FONT_OBJECTS = mainFont.o
 
 CC = aarch64-linux-gnu-gcc
 CC_FLAGS = -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles \
@@ -41,12 +46,14 @@ OBJCOPY_FLAGS = -O binary
 
 all:
 	$(ASM) -c $(ASM_SOURCES) -o $(ASM_OBJECTS)
+	$(LD) -r -b binary -o $(FONT_OBJECTS) $(FONT_SOURCES)
 	$(CC) $(CC_FLAGS) -c $(C_SOURCES)
-	$(LD) $(LD_FLAGS) $(ASM_OBJECTS) $(C_OBJECTS) -o $(LD_OUTPUT)
+	$(LD) $(LD_FLAGS) $(ASM_OBJECTS) $(FONT_OBJECTS) $(C_OBJECTS) -o $(LD_OUTPUT)
 	$(OBJCOPY) $(OBJCOPY_FLAGS) $(LD_OUTPUT) Image.img
 	$(QEMU) $(QEMU_FLAGS) -kernel Image.img
 
 clean:
 	rm $(C_OBJECTS)
 	rm $(ASM_OBJECTS)
+	rm $(FONT_OBJECTS)
 	rm Image.*

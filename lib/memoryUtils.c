@@ -106,3 +106,13 @@ void *memset(void *dest, int x, size_t n) {
 void bzero(void *dest) {
     memset(dest, 0, 8);
 }
+
+/**
+ * Zeroes the next N bytes which start at dest.
+ *
+ * @param dest area of memory where the bytes start
+ * @param n bytes count
+ */
+void bzeros(void *dest, size_t n) {
+    memset(dest, 0, 8 * n);
+}

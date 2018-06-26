@@ -46,4 +46,12 @@ void *memset(void *dest, int x, size_t n);
  */
 void bzero(void *dest);
 
+/**
+ * Zeroes the next N bytes which start at dest.
+ *
+ * @param dest area of memory where the bytes start
+ * @param n bytes count
+ */
+void bzeros(void *dest, size_t n);
+
 #endif //YOYO_KERNEL_MEMORYUTILS_H
