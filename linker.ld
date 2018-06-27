@@ -2,42 +2,22 @@ ENTRY(_start)
 
 SECTIONS
 {
-    /* Starts at LOADER_ADDR. */
-    . = 0x80000;        /* !!!!!!!!!!!!!!!!!!! */
-    __start = .;
-    __text_start = .;
-    .text :
-    {
-        KEEP(*(.text.boot))
-        *(.text .text.* .gnu.linkonce.t*)
+    . = 0x80000;
+    .text : { KEEP(*(.text.boot)) *(.text .text.* .gnu.linkonce.t*) }
+    .rodata : { *(.rodata .rodata.* .gnu.linkonce.r*) }
+    . = ALIGN(4096);
+    PROVIDE(_data = .);
+    .data : { *(.data .data.* .gnu.linkonce.d*) }
+    .bss (NOLOAD) : {
+        . = ALIGN(16);
+        __bss_start = .;
+        *(.bss .bss.*)
+        *(COMMON)
+        __bss_end = .;
     }
-    . = ALIGN(4096); /* align to page size */
-    __text_end = .;
+    . = ALIGN(4096);
+    _end = .;
 
-    __rodata_start = .;
-    .rodata :
-    {
-        *(.rodata .rodata.* .gnu.linkonce.r*)
-    }
-    . = ALIGN(4096); /* align to page size */
-    __rodata_end = .;
-
-    __data_start = .;
-    .data :
-    {
-        *(.data .data.* .gnu.linkonce.d*)
-    }
-    . = ALIGN(4096); /* align to page size */
-    __data_end = .;
-
-    __bss_start = .;
-    .bss :
-    {
-        bss = .;
-        *(.bss)
-    }
-    . = ALIGN(4096); /* align to page size */
-    __bss_end = .;
-    __end = .;
+   /DISCARD/ : { *(.comment) *(.gnu*) *(.note*) *(.eh_frame*) }
 }
 __bss_size = (__bss_end - __bss_start)>>3;
