@@ -8,7 +8,8 @@ C_SOURCES = init/init.c \
             lib/ctype.c \
             lib/memoryUtils.c \
             lib/debug.c \
-            mm/mm.c
+            mm/mm.c \
+            arm/mmu.c
 
 C_OBJECTS = init.o \
 			mailboxes.o \
@@ -20,7 +21,8 @@ C_OBJECTS = init.o \
 			ctype.o \
 			memoryUtils.o \
 			debug.o \
-			mm.o
+			mm.o \
+			mmu.o
 
 ASM_SOURCES = arm/boot.S
 ASM_OBJECTS = boot.o
