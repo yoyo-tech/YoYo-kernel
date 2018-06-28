@@ -8,6 +8,7 @@ SECTIONS
     . = ALIGN(4096);
     PROVIDE(_data = .);
     .data : { *(.data .data.* .gnu.linkonce.d*) }
+    . = ALIGN(0x8);
     .bss (NOLOAD) : {
         . = ALIGN(16);
         __bss_start = .;
