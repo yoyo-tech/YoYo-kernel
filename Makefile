@@ -9,7 +9,9 @@ C_SOURCES = init/init.c \
             lib/memoryUtils.c \
             lib/debug.c \
             mm/mm.c \
-            arm/mmu.c
+            arm/mmu.c \
+            arm/irq.c \
+            arm/timer.c
 
 C_OBJECTS = init.o \
 			mailboxes.o \
@@ -22,14 +24,21 @@ C_OBJECTS = init.o \
 			memoryUtils.o \
 			debug.o \
 			mm.o \
-			mmu.o
+			mmu.o \
+			irq.o \
+			timer.o
 
 # aarch64-linux-gnu TOOLCHAIN!
 
 ASM_SOURCES = arm/boot.S \
-			arm/hardwareUtils.S
+			arm/hardwareUtils.S \
+			arm/io.S \
+			arm/irq.S
+
 ASM_OBJECTS = boot.o \
-			hardwareUtils.o
+			hardwareUtils.o \
+			io.o \
+			irqASM.o
 
 FONT_SOURCES = init/bootFonts/mainFont.psf
 FONT_OBJECTS = mainFont.o
@@ -45,7 +54,8 @@ LD_OUTPUT = Image.elf
 QEMU = qemu-system-aarch64
 QEMU_FLAGS = -M raspi3 -serial stdio
 
-ASM = aarch64-linux-gnu-as
+ASM = aarch64-linux-gnu-gcc
+ASM_FLAGS = -I include/ -MMD
 
 OBJCOPY = aarch64-linux-gnu-objcopy
 OBJCOPY_FLAGS = -O binary
@@ -53,17 +63,20 @@ OBJCOPY_FLAGS = -O binary
 .PHONY: all clean
 
 all:
-	$(ASM) -c arm/boot.S -o boot.o
+	$(ASM) $(ASM_FLAGS) -c arm/boot.S -o boot.o
 	$(ASM) -c arm/hardwareUtils.S -o hardwareUtils.o
+	$(ASM) -c arm/io.S -o io.o
+	$(ASM) -c arm/irq.S -o irqASM.o
 
 	$(LD) -r -b binary -o $(FONT_OBJECTS) $(FONT_SOURCES)
 	$(CC) $(CC_FLAGS) -c $(C_SOURCES)
-	$(LD) $(LD_FLAGS) $(ASM_OBJECTS) $(C_OBJECTS) $(FONT_OBJECTS) -o $(LD_OUTPUT)
-	$(OBJCOPY) $(OBJCOPY_FLAGS) $(LD_OUTPUT) Image.img
-	$(QEMU) $(QEMU_FLAGS) -kernel Image.img
+	$(LD) $(LD_FLAGS) $(ASM_OBJECTS) $(FONT_OBJECTS) $(C_OBJECTS) -o $(LD_OUTPUT)
+	$(OBJCOPY) $(OBJCOPY_FLAGS) $(LD_OUTPUT) kernel8.img
+	$(QEMU) $(QEMU_FLAGS) -kernel kernel8.img
 
 clean:
 	rm $(C_OBJECTS)
 	rm $(ASM_OBJECTS)
 	rm $(FONT_OBJECTS)
 	rm Image.*
+	rm kernel8.*

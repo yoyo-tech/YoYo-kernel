@@ -18,7 +18,7 @@
  */
 void printDebug(const char *s);
 
-int vsnprintf(char* buffer, unsigned int buffer_len, const char *fmt, va_list va);
-int snprintf(char* buffer, unsigned int buffer_len, const char *fmt, ...);
+int vsnprintf(char* buffer, unsigned int len, const char *fmt, va_list va);
+int snprintf(char* buffer, unsigned int len, const char *fmt, ...);
 
 #endif //YOYO_KERNEL_DEBUG_H

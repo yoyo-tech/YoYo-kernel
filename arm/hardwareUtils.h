@@ -7,6 +7,11 @@
 #ifndef YOYO_KERNEL_HARDWAREUTILS_H
 #define YOYO_KERNEL_HARDWAREUTILS_H
 
+/**
+ * Returns current execution level.
+ *
+ * @return current EL
+ */
 extern int getExecutionLevel();
 
 #endif //YOYO_KERNEL_HARDWAREUTILS_H

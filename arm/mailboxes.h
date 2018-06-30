@@ -33,6 +33,13 @@ extern volatile unsigned int mailbox[36];
 #define MAILBOX_TAG_SETCLOCKRATE    0x38002
 #define MAILBOX_TAG_LAST            0
 
+/**
+ * Makes call to mailbox.
+ * Before call you must zero and fill(refill) mailbox array.
+ *
+ * @param channel - destination mailbox channel
+ * @return ReturnStatus
+ */
 ReturnStatus mailboxCall(unsigned char ch);
 
 #endif //YOYO_KERNEL_MAILBOXES_H

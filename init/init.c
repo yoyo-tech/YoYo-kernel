@@ -52,9 +52,19 @@ void kernelInit() {
     INITPrintf("Height: %d\n", screenHeight);
     INITPrintf("Pitch: %d\n", screenPitch);
     INITPrintf("Current execution level: %d\n", getExecutionLevel());
+    INITPrintf("Vector table fulfilled and placed!\n");
+
+    timerInit();
+    INITPrintf("Timer initialized!\n");
+
+    enableInterruptController();
+    enableInterrupts();
+    INITPrintf("Interrupts initialized and enabled!\n");
 
     mmInit();
     INITPrintf("Memory management subsystem initialized!\n");
+
+//    unsigned int r = *((volatile unsigned int*)0xFFFFFFFFFF000000);
 
     for(;;)
         ;

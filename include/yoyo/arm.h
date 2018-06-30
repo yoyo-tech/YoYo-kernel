@@ -13,6 +13,8 @@
 #include "../../arm/powerManagement.h"
 #include "../../arm/framebuffer.h"
 #include "../../arm/mmu.h"
-#include "../../arm/hardwareUtils.h"
+#include "../../arm/io.h"
+#include "../../arm/irq.h"
+#include "../../arm/timer.h"
 
 #endif //YOYO_KERNEL_ARM_H
